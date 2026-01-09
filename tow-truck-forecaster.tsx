@@ -381,22 +381,22 @@ export default function TowTruckForecaster() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div>
                   <p className="text-sm text-gray-600">Driver Salary</p>
-                  <p className="text-lg font-semibold">₹{driverSalary.toLocaleString('en-IN')}</p>
+                  <p className="text-lg font-semibold text-gray-800">₹{driverSalary.toLocaleString('en-IN')}</p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-600">Maintenance</p>
-                  <p className="text-lg font-semibold">₹{maintenancePerMonth.toLocaleString('en-IN')}</p>
+                  <p className="text-lg font-semibold text-gray-800">₹{maintenancePerMonth.toLocaleString('en-IN')}</p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-600">Fuel Cost</p>
-                  <p className="text-lg font-semibold">₹{Math.round(calculations.fuelCost).toLocaleString('en-IN')}</p>
+                  <p className="text-lg font-semibold text-gray-800">₹{Math.round(calculations.fuelCost).toLocaleString('en-IN')}</p>
                   <p className="text-xs text-gray-500">{Math.round(calculations.totalMonthlyDistance)} km/month</p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-600">
                     {financingMode === 'loan' ? 'Loan EMI' : 'Financing'}
                   </p>
-                  <p className="text-lg font-semibold">
+                  <p className="text-lg font-semibold text-gray-800">
                     {financingMode === 'loan' ? `₹${Math.round(calculations.emi).toLocaleString('en-IN')}` : '₹0'}
                   </p>
                   {financingMode === 'loan' && (
