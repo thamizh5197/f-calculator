@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar } from 'recharts';
 
 export default function TowTruckForecaster() {
@@ -63,7 +63,7 @@ export default function TowTruckForecaster() {
     const bikeDistanceOver40 = bikeOver40 * avgDistanceOver40 * 2;
 
     const totalMonthlyDistance = carDistanceUnder40 + carDistanceOver40 + bikeDistanceUnder40 + bikeDistanceOver40;
-    const fuelCost = mileage > 0 ? (totalMonthlyDistance / mileage) * dieselPrice : 0;
+    const fuelCost = (totalMonthlyDistance / mileage) * dieselPrice;
 
     // Monthly costs
     const emi = calculateEMI();
@@ -74,7 +74,7 @@ export default function TowTruckForecaster() {
       if (financingMode === 'cash') {
         initialInvestment = truckCost;
       } else if (financingMode === 'loan') {
-        initialInvestment = Math.max(0, truckCost - loanAmount); // Down payment (prevent negative)
+        initialInvestment = truckCost - loanAmount; // Down payment
       } else if (financingMode === 'lease') {
         initialInvestment = leaseAmount;
       }
@@ -104,9 +104,7 @@ export default function TowTruckForecaster() {
       });
     }
 
-    // Calculate first month costs for display (includes EMI only if within loan tenure)
-    const firstMonthEMI = (financingMode === 'loan' && loanTenure > 0) ? emi : 0;
-    const totalMonthlyCosts = driverSalary + maintenancePerMonth + fuelCost + firstMonthEMI;
+    const totalMonthlyCosts = driverSalary + maintenancePerMonth + fuelCost + emi;
     const monthlyProfit = totalMonthlyRevenue - totalMonthlyCosts;
 
     return {
@@ -147,7 +145,7 @@ export default function TowTruckForecaster() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Car Per KM Rate (&gt;40km)</label>
+                  <label className="block text-sm font-medium text-gray-700">Car Per KM Rate ({'>'}40km)</label>
                   <input type="number" value={carPerKmRate} onChange={(e) => setCarPerKmRate(Number(e.target.value))}
                     className="mt-1 block w-full rounded border-gray-300 shadow-sm p-2 border" />
                 </div>
@@ -159,7 +157,7 @@ export default function TowTruckForecaster() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Bike Per KM Rate (&gt;40km)</label>
+                  <label className="block text-sm font-medium text-gray-700">Bike Per KM Rate ({'>'}40km)</label>
                   <input type="number" value={bikePerKmRate} onChange={(e) => setBikePerKmRate(Number(e.target.value))}
                     className="mt-1 block w-full rounded border-gray-300 shadow-sm p-2 border" />
                 </div>
@@ -200,7 +198,7 @@ export default function TowTruckForecaster() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Avg Distance (&gt;40km jobs): {avgDistanceOver40} km</label>
+                  <label className="block text-sm font-medium text-gray-700">Avg Distance ({'>'}40km jobs): {avgDistanceOver40} km</label>
                   <input type="range" min="40" max="200" value={avgDistanceOver40}
                     onChange={(e) => setAvgDistanceOver40(Number(e.target.value))}
                     className="mt-1 block w-full" />
@@ -233,7 +231,7 @@ export default function TowTruckForecaster() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700">Mileage (km/liter)</label>
-                  <input type="number" min="0.1" step="0.1" value={mileage} onChange={(e) => setMileage(Math.max(0.1, Number(e.target.value)))}
+                  <input type="number" value={mileage} onChange={(e) => setMileage(Number(e.target.value))}
                     className="mt-1 block w-full rounded border-gray-300 shadow-sm p-2 border" />
                 </div>
               </div>
@@ -288,7 +286,7 @@ export default function TowTruckForecaster() {
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700">Loan Amount (₹)</label>
-                      <input type="number" max={truckCost} value={loanAmount} onChange={(e) => setLoanAmount(Math.min(truckCost, Number(e.target.value)))}
+                      <input type="number" value={loanAmount} onChange={(e) => setLoanAmount(Number(e.target.value))}
                         className="mt-1 block w-full rounded border-gray-300 shadow-sm p-2 border" />
                       <p className="text-xs text-gray-500 mt-1">Down payment: ₹{(truckCost - loanAmount).toLocaleString('en-IN')}</p>
                     </div>
