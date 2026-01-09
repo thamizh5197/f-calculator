@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar } from 'recharts';
 
 export default function TowTruckForecaster() {
@@ -147,7 +147,7 @@ export default function TowTruckForecaster() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Car Per KM Rate (>40km)</label>
+                  <label className="block text-sm font-medium text-gray-700">Car Per KM Rate (&gt;40km)</label>
                   <input type="number" value={carPerKmRate} onChange={(e) => setCarPerKmRate(Number(e.target.value))}
                     className="mt-1 block w-full rounded border-gray-300 shadow-sm p-2 border" />
                 </div>
@@ -159,7 +159,7 @@ export default function TowTruckForecaster() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Bike Per KM Rate (>40km)</label>
+                  <label className="block text-sm font-medium text-gray-700">Bike Per KM Rate (&gt;40km)</label>
                   <input type="number" value={bikePerKmRate} onChange={(e) => setBikePerKmRate(Number(e.target.value))}
                     className="mt-1 block w-full rounded border-gray-300 shadow-sm p-2 border" />
                 </div>
@@ -200,7 +200,7 @@ export default function TowTruckForecaster() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Avg Distance (>40km jobs): {avgDistanceOver40} km</label>
+                  <label className="block text-sm font-medium text-gray-700">Avg Distance (&gt;40km jobs): {avgDistanceOver40} km</label>
                   <input type="range" min="40" max="200" value={avgDistanceOver40}
                     onChange={(e) => setAvgDistanceOver40(Number(e.target.value))}
                     className="mt-1 block w-full" />
